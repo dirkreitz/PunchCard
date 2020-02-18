@@ -53,7 +53,7 @@ resource "azurerm_virtual_machine_extension" "PunchCard" {
   settings = <<SETTINGS
     {
         "skipDos2Unix":true,
-        "fileUris": ["https://github.com/dirkreitz/PunchCard/blob/master/setup.sh"],
+        "fileUris": ["https://raw.githubusercontent.com/dirkreitz/PunchCard/master/setup.sh"],
         "commandToExecute": "bash setup.sh"
     }
 SETTINGS
