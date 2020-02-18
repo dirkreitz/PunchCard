@@ -39,4 +39,7 @@ sudo npm install bluebird
 sudo npm install fs
 
 sudo apt-get purge -y expect
+
+wget https://raw.githubusercontent.com/dirkreitz/PunchCard/master/routes.js
+
 exit 0
