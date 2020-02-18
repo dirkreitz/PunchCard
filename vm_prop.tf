@@ -44,17 +44,19 @@ resource "azurerm_virtual_machine" "PunchCard" {
 }
 
 resource "azurerm_virtual_machine_extension" "PunchCard" {
-  name                  = "config"
+  name                  = "configuration"
   virtual_machine_id    = azurerm_virtual_machine.PunchCard.id
   publisher             = "Microsoft.Azure.Extensions"
   type                  = "CustomScript"
-  type_handler_version  = "2.0"
+  type_handler_version  = "2.1"
 
   settings = <<SETTINGS
     {
-
+        "skipDos2Unix":true,
+        "fileUris": ["https://github.com/dirkreitz/PunchCard/blob/master/setup.sh"],
+        "commandToExecute": "bash setup.sh"
     }
-    SETTINGS
+SETTINGS
 
   tags = "${var.tags}"
 }
