@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "PunchCard" {
+resource "azurerm_resource_group" "PunchClock" {
   name 		= "${var.resource_group_name}"
   location 	= "${var.location}"
 
@@ -16,7 +16,7 @@ resource "azurerm_virtual_network" "pc_vnet" {
   name 					= "PunchCard-VNet"
   address_space 		= ["${var.vnet_cidr}"]
   location 				= "${var.location}"
-  resource_group_name 	= "${azurerm_resource_group.PunchCard.name}"
+  resource_group_name 	= "${azurerm_resource_group.PunchClock.name}"
   
   tags = "${var.tags}"
 }
@@ -25,14 +25,14 @@ resource "azurerm_subnet" "pc_subnet_1" {
   name 					        = "PC-Subnet-1"
   address_prefix 		    = "${var.subnet1_cidr}"
   virtual_network_name 	= "${azurerm_virtual_network.pc_vnet.name}"
-  resource_group_name 	= "${azurerm_resource_group.PunchCard.name}"
+  resource_group_name 	= "${azurerm_resource_group.PunchClock.name}"
   service_endpoints     = ["Microsoft.Sql"]
 }
 
 resource "azurerm_public_ip" "pc_pubip" {
   name                         = "PunchCard-pip"
   location                     = "${var.location}"
-  resource_group_name          = "${azurerm_resource_group.PunchCard.name}"
+  resource_group_name          = "${azurerm_resource_group.PunchClock.name}"
   allocation_method            = "Static"
   domain_name_label            = "${random_string.pc_fqdn.result}"
 
@@ -42,7 +42,7 @@ resource "azurerm_public_ip" "pc_pubip" {
 resource "azurerm_network_interface" "public_nic" {
   name 		                  = "PunchCard-Web"
   location 	                = "${var.location}"
-  resource_group_name       = "${azurerm_resource_group.PunchCard.name}"
+  resource_group_name       = "${azurerm_resource_group.PunchClock.name}"
   network_security_group_id = "${azurerm_network_security_group.nsg_web.id}"
 
   ip_configuration {
@@ -56,7 +56,7 @@ resource "azurerm_network_interface" "public_nic" {
 resource "azurerm_network_security_group" "nsg_web" {
   name 					= "PunchCard-NSG"
   location 				= "${var.location}"
-  resource_group_name 	= "${azurerm_resource_group.PunchCard.name}"
+  resource_group_name 	= "${azurerm_resource_group.PunchClock.name}"
 
   security_rule {
 	name 						= "AllowSSH"

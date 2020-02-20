@@ -62,7 +62,7 @@ variable "tags" {
   type        = map
 
   default = {
-    project    = "PunchCard"
+    project    = "PunchClock"
     state      = "development"
     owner      = "Flens IT Solutions"
     maintainer = "Dirk Reitz"
