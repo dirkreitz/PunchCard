@@ -1,7 +1,7 @@
-resource "azurerm_virtual_machine" "PunchCard" {
-  name                  = "PunchCard-VM"
+resource "azurerm_virtual_machine" "PunchClock" {
+  name                  = "PunchClock-VM"
   location              = "${var.location}"
-  resource_group_name   = "${azurerm_resource_group.PunchCard.name}"
+  resource_group_name   = "${azurerm_resource_group.PunchClock.name}"
   network_interface_ids = ["${azurerm_network_interface.public_nic.id}"]
   vm_size               = "Standard_DS1_v2"
 
@@ -22,16 +22,16 @@ resource "azurerm_virtual_machine" "PunchCard" {
     managed_disk_type = "Standard_LRS"
   }
 
-  storage_data_disk {
-    name           = "pc-data-1"  
-    lun            = 0
-    disk_size_gb   = "10"
-    caching        = "ReadWrite"
-    create_option  = "Empty"
-  }
+  #storage_data_disk {
+  #  name           = "pc-data-1"  
+  #  lun            = 0
+  #  disk_size_gb   = "10"
+  #  caching        = "ReadWrite"
+  #  create_option  = "Empty"
+  #}
 
   os_profile {
-    computer_name  = "punchcard"
+    computer_name  = "punchclock"
     admin_username = "${var.vm_username}"
     admin_password = "${var.vm_password}"
   }
@@ -43,9 +43,9 @@ resource "azurerm_virtual_machine" "PunchCard" {
   tags = "${var.tags}"
 }
 
-resource "azurerm_virtual_machine_extension" "PunchCard" {
+resource "azurerm_virtual_machine_extension" "PunchClock" {
   name                  = "configuration"
-  virtual_machine_id    = azurerm_virtual_machine.PunchCard.id
+  virtual_machine_id    = azurerm_virtual_machine.PunchClock.id
   publisher             = "Microsoft.Azure.Extensions"
   type                  = "CustomScript"
   type_handler_version  = "2.1"
