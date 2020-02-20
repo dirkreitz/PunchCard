@@ -189,11 +189,11 @@ app.post('/manualpunch', function (req, res) {
 			else{
 				deviceUID = json[0].ID;
 
-				connection.query("SELECT checkin_type FROM timetable WHERE deviceID = "+deviceUID+" ORDER BY UNIX_TIMESTAMP DESC LIMIT 1", function (error, results, fields) {
+				connection.query("SELECT check_type FROM timetable WHERE deviceID = "+deviceUID+" ORDER BY UNIX_TIMESTAMP DESC LIMIT 1", function (error, results, fields) {
 
 					var string2=JSON.stringify(results);
 					var json2 =  JSON.parse(string2);
-					checkType = json2[0].checkin_type;
+					checkType = json2[0].check_type;
 					console.log('Checkin Type:'+checkType);
 
 
@@ -325,11 +325,11 @@ app.post('/punch', function (req, res) {
 			else{
 				deviceUID = json[0].ID;
 
-				connection.query("SELECT checkin_type FROM timetable WHERE deviceID = "+deviceUID+" ORDER BY UNIX_TIMESTAMP DESC LIMIT 1", function (error, results, fields) {
+				connection.query("SELECT check_type FROM timetable WHERE deviceID = "+deviceUID+" ORDER BY UNIX_TIMESTAMP DESC LIMIT 1", function (error, results, fields) {
 
 					var string2=JSON.stringify(results);
 					var json2 =  JSON.parse(string2);
-					checkType = json2[0].checkin_type;
+					checkType = json2[0].check_type;
 					console.log('Checkin Type:'+checkType);
 
 
