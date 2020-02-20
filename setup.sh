@@ -34,9 +34,7 @@ sudo mkdir /home/pc-admin/punchcard
 cd /home/pc-admin/punchcard
 sudo npm install express
 sudo npm install body-parser
-sudo npm install promise-mysql
-sudo npm install bluebird
-sudo npm install fs
+sudo npm install mysql
 
 sudo apt-get purge -y expect
 
