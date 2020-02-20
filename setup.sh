@@ -3,8 +3,6 @@ sudo apt-get update -y
 sudo apt-get install -y expect
 export DEBIAN_FRONTEND=noninteractive
 sudo -E apt-get -q -y install mysql-server mc curl
-curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-sudo apt-get install -y nodejs
 
 SECURE_MYSQL=$(expect -c "
 set timeout 10
@@ -29,6 +27,9 @@ expect eof
 echo "$SECURE_MYSQL"
 
 mysql -uroot -pmysql -e "CREATE DATABASE IF NOT EXISTS punchclock CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
 sudo mkdir /home/pc-admin/punchcard
 cd /home/pc-admin/punchcard
