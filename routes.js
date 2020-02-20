@@ -1,14 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('promise-mysql');
-const Promise = require('bluebird');
-const fs = Promise.promisifyAll(require('fs'));
+const mysql = require('mysql');
+//const Promise = require('bluebird');
+//const fs = Promise.promisifyAll(require('fs'));
 var deviceUID;
 var checkType;
 
 
 var pool = mysql.createPool({
-  connectionLimit : 10,
+  //connectionLimit : 10,
   host     : 'localhost',
   user     : 'root',
   password : '',
@@ -40,15 +40,16 @@ Object.size = function(obj) {
 
 
 // Creating a GET route that returns data from the 'users' table.
-app.get('/devices', async function (req, res) {
+app.get('/devices', function (req, res) {
 	//const connection = await pool.getConnection();
 	console.log('Getting...');
     // Connecting to the database.
-    pool.then(function(p){
+    pool.getConnection(function(err, connection){
+		if(err) return res.send(400);
     
-		return  p.getConnection()
+		/*return  p.getConnection()
 		  
-	  }).then(function(connection){
+	  }).then(function(connection){*/
 
     // Executing the MySQL query (select all data from the 'users' table).
     connection.query("SELECT * FROM devicetable", function (error, results, fields) {
@@ -63,15 +64,16 @@ app.get('/devices', async function (req, res) {
 });
 
 
-app.post('/overview', async function (req, res) {
+app.post('/overview', function (req, res) {
 	//const connection = await pool.getConnection();
 	console.log('Getting times...');
     // Connecting to the database.
-    pool.then(function(p){
+    pool.getConnection(function(err, connection){
+		if(err) return res.send(400);
     
-		return  p.getConnection()
+		/*return  p.getConnection()
 		  
-	  }).then(function(connection){
+	  }).then(function(connection){*/
 
     // Executing the MySQL query (select all data from the 'users' table).
     connection.query("SELECT ID FROM devicetable WHERE device = '"+req.body.deviceID+"'", function (error, results, fields) {
@@ -114,17 +116,18 @@ app.post('/overview', async function (req, res) {
 
 /////MANUAL PUNCH////////////
 
-app.post('/manualpunch', async function (req, res) {
+app.post('/manualpunch', function (req, res) {
 	// Connecting to the database.
 	//const connection = await pool.getConnection();
 	console.log('Punching...');
 	var stamp = new Date();
 	//var stamper = stamp.parse()
-    pool.then(function(p){
+    pool.getConnection(function(err, connection){
+		if(err) return res.send(400);
     
-		return  p.getConnection()
+		/*return  p.getConnection()
 		  
-	  }).then(function(connection){
+	  }).then(function(connection){*/
 		
 	try{	
 		stamp = new Date(Date.parse(stamp)-(req.body.settime*60000));
@@ -257,15 +260,16 @@ app.post('/manualpunch', async function (req, res) {
 
 /////APP PUNCH////////////
 
-app.post('/punch', async function (req, res) {
+app.post('/punch', function (req, res) {
 	// Connecting to the database.
 	//const connection = await pool.getConnection();
 	console.log('Punching...');
-    pool.then(function(p){
+    pool.getConnection(function(err, connection){
+		if(err) return res.send(400);
     
-		return  p.getConnection()
+		/*return  p.getConnection()
 		  
-	  }).then(function(connection){
+	  }).then(function(connection){*/
 		
 	try{	
 		connection.query("SELECT ID FROM devicetable WHERE device = '"+req.body.deviceID+"'", function (error, results, fields) {
