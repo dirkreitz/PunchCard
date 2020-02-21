@@ -98,7 +98,7 @@ app.post('/overview', function (req, res) {
 
 				console.log(jsonX[i]);
 				punches.push(jsonX[i].UNIX_TIMESTAMP);
-				punches.push(jsonX[i].checkin_type);
+				punches.push(jsonX[i].check_type);
 				punches.push(jsonX[i].punch_method);
 			};
 	  
