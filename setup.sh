@@ -35,8 +35,8 @@ mysql -uroot -pmysql -e "USE punchclock;ALTER TABLE devicetable MODIFY ID int(16
 mysql -uroot -pmysql -e "USE punchclock;ALTER TABLE timetable MODIFY ID int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;";
 mysql -uroot -pmysql -e "USE punchclock;ALTER TABLE timetable ADD CONSTRAINT fk_appID FOREIGN KEY (deviceID) REFERENCES devicetable (ID), ADD CONSTRAINT fk_name FOREIGN KEY (deviceID) REFERENCES devicetable (ID);COMMIT;";
 
-mysql -uroot -pmysql -e "CREATE USER 'admin'@'%' IDENTIFIED BY '$up3r$3cur3';"
-mysql -uroot -pmysql -e "GRANT ALL PRIVILEGES ON * . * TO 'admin'@'%' WITH GRANT OPTION;"
+mysql -uroot -pmysql -e "CREATE USER 'admin'@'localhost' IDENTIFIED BY '$up3r$3cur3';"
+mysql -uroot -pmysql -e "GRANT ALL PRIVILEGES ON * . * TO 'admin'@'localhost' WITH GRANT OPTION;"
 mysql -uroot -pmysql -e "FLUSH PRIVILEGES;"
 
 echo "bind-address = 0.0.0.0" | sudo tee -a /etc/mysql/mysql.conf.d/mysqld.cnf
