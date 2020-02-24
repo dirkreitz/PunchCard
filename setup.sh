@@ -28,7 +28,7 @@ echo "$SECURE_MYSQL"
 
 mysql -uroot -pmysql -e "CREATE DATABASE IF NOT EXISTS punchclock CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 mysql -uroot -pmysql -e "USE punchclock;CREATE TABLE IF NOT EXISTS devicetable (ID int(16) NOT NULL, device varchar(128) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-mysql -uroot -pmysql -e "USE punchclock;CREATE TABLE IF NOT EXISTS timetable (ID int(16) NOT NULL, name varchar(128) NOT NULL, deviceID int(16) NOT NULL, check_type int(4) NOT NULL, UNIX_TIMESTAMP timestamp NOT NULL DEFAULT current_timestamp(), punch_method varchar(32) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+mysql -uroot -pmysql -e "USE punchclock;CREATE TABLE IF NOT EXISTS timetable (ID int(16) NOT NULL, name varchar(128) NOT NULL, deviceID int(16) NOT NULL, check_type int(4) NOT NULL, UNIX_TIMESTAMP timestamp NOT NULL DEFAULT current_timestamp(), punch_method varchar(32) NOT NULL, confirmed tinyint(1) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 mysql -uroot -pmysql -e "USE punchclock;ALTER TABLE devicetable ADD PRIMARY KEY (ID), ADD UNIQUE KEY device (device);";
 mysql -uroot -pmysql -e "USE punchclock;ALTER TABLE timetable ADD PRIMARY KEY (ID), ADD KEY appID (deviceID);";
 mysql -uroot -pmysql -e "USE punchclock;ALTER TABLE devicetable MODIFY ID int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;";
