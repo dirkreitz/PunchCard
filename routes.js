@@ -10,8 +10,8 @@ var checkType;
 var pool = mysql.createPool({
   connectionLimit : 1000,
   host     : 'localhost',
-  user     : 'root',
-  password : '',
+  user     : 'admin',
+  password : '$up3r$3cur3',
   database : 'punchclock'
 });
 console.log(pool);
