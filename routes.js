@@ -10,8 +10,8 @@ var checkType;
 var pool = mysql.createPool({
   connectionLimit : 1000,
   host     : 'localhost',
-  user     : 'admin',
-  password : '$up3r$3cur3',
+  user     : 'root',
+  password : '',
   database : 'punchclock'
 });
 console.log(pool);
@@ -169,7 +169,7 @@ app.post('/manualpunch', function (req, res) {
 					deviceUID = json[0].ID;
 					console.log(deviceUID);
 
-					connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+0+", FROM_UNIXTIME ("+Math.round(stamp.getTime()/1000)+"), 'Manual')", function (error, results, fields) {
+					connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+0+", FROM_UNIXTIME ("+Math.round(stamp.getTime()/1000)+"), 'Manual', false)", function (error, results, fields) {
 						// If some error occurs, we throw an error.
 						if (error) throw error;
 		
@@ -203,7 +203,7 @@ app.post('/manualpunch', function (req, res) {
 					if (checkType === 0){
 
 
-						connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+1+", FROM_UNIXTIME ("+Math.round(stamp.getTime()/1000)+"), 'Manual')", function (error, results, fields) {
+						connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+1+", FROM_UNIXTIME ("+Math.round(stamp.getTime()/1000)+"), 'Manual', false+)", function (error, results, fields) {
 							// If some error occurs, we throw an error.
 							if (error) throw error;
 		
@@ -216,7 +216,7 @@ app.post('/manualpunch', function (req, res) {
 					else{
 
 
-						connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+0+", FROM_UNIXTIME ("+Math.round(stamp.getTime()/1000)+"), 'Manual')", function (error, results, fields) {
+						connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+0+", FROM_UNIXTIME ("+Math.round(stamp.getTime()/1000)+"), 'Manual', false)", function (error, results, fields) {
 							// If some error occurs, we throw an error.
 							if (error) throw error;
 		
@@ -309,7 +309,7 @@ app.post('/punch', function (req, res) {
 					deviceUID = json[0].ID;
 					console.log(deviceUID);
 
-					connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+0+", null, 'Regular')", function (error, results, fields) {
+					connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+0+", null, 'Regular', true)", function (error, results, fields) {
 						// If some error occurs, we throw an error.
 						if (error) throw error;
 		
@@ -343,7 +343,7 @@ app.post('/punch', function (req, res) {
 					if (checkType === 0){
 
 
-						connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+1+", null, 'Regular')", function (error, results, fields) {
+						connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+1+", null, 'Regular', true)", function (error, results, fields) {
 							// If some error occurs, we throw an error.
 							if (error) throw error;
 		
@@ -356,7 +356,7 @@ app.post('/punch', function (req, res) {
 					else{
 
 
-						connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+0+", null, 'Regular')", function (error, results, fields) {
+						connection.query("INSERT INTO timetable VALUES (null, '"+req.body.name+"', "+deviceUID+", "+0+", null, 'Regular', true)", function (error, results, fields) {
 							// If some error occurs, we throw an error.
 							if (error) throw error;
 		
