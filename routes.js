@@ -8,7 +8,7 @@ var checkType;
 
 
 var pool = mysql.createPool({
-  //connectionLimit : 10,
+  connectionLimit : 1000,
   host     : 'localhost',
   user     : 'root',
   password : '',
@@ -45,7 +45,7 @@ app.get('/devices', function (req, res) {
 	console.log('Getting...');
     // Connecting to the database.
     pool.getConnection(function(err, connection){
-		if(err) return res.send(400);
+		if(err) return res.sendStatus(400);
     
 		/*return  p.getConnection()
 		  
@@ -57,10 +57,11 @@ app.get('/devices', function (req, res) {
       if (error) throw error;
 
       // Getting the 'response' from the database and sending it to our route. This is were the data is.
-      res.send(results)
+	  res.send(results)
+	  connection.end();
     });
   });
-  //connection.end();
+  	//connection.end();
 });
 
 
@@ -69,7 +70,7 @@ app.post('/overview', function (req, res) {
 	console.log('Getting times...');
     // Connecting to the database.
     pool.getConnection(function(err, connection){
-		if(err) return res.send(400);
+		if(err) return res.sendStatus(400);
     
 		/*return  p.getConnection()
 		  
@@ -104,10 +105,11 @@ app.post('/overview', function (req, res) {
 	  
 			// Getting the 'response' from the database and sending it to our route. This is were the data is.
 			res.send(punches)
+			connection.end();
 		  });
 
 		});
-  //connection.end();
+  		//connection.end();
 	});
 });
 
@@ -123,7 +125,7 @@ app.post('/manualpunch', function (req, res) {
 	var stamp = new Date();
 	//var stamper = stamp.parse()
     pool.getConnection(function(err, connection){
-		if(err) return res.send(400);
+		if(err) return res.sendStatus(400);
     
 		/*return  p.getConnection()
 		  
@@ -173,6 +175,7 @@ app.post('/manualpunch', function (req, res) {
 		
 						// Getting the 'response' from the database and sending it to our route. This is were the data is.
 						res.send(results)
+						connection.end();
 					});
 
 				});
@@ -206,6 +209,7 @@ app.post('/manualpunch', function (req, res) {
 		
 							// Getting the 'response' from the database and sending it to our route. This is were the data is.
 							res.send(results)
+							connection.end();
 						});
 
 					}
@@ -218,6 +222,7 @@ app.post('/manualpunch', function (req, res) {
 		
 							// Getting the 'response' from the database and sending it to our route. This is were the data is.
 							res.send(results)
+							connection.end();
 						});
 
 					}
@@ -249,6 +254,7 @@ app.post('/manualpunch', function (req, res) {
 
 		console.log('Query ERROR');
 		res.send('QUERY ERROR');
+		connection.end();
 		
 		
 	};
@@ -265,7 +271,7 @@ app.post('/punch', function (req, res) {
 	//const connection = await pool.getConnection();
 	console.log('Punching...');
     pool.getConnection(function(err, connection){
-		if(err) return res.send(400);
+		if(err) return res.sendStatus(400);
     
 		/*return  p.getConnection()
 		  
@@ -309,6 +315,7 @@ app.post('/punch', function (req, res) {
 		
 						// Getting the 'response' from the database and sending it to our route. This is were the data is.
 						res.send(results)
+						connection.end();
 					});
 
 				});
@@ -342,6 +349,7 @@ app.post('/punch', function (req, res) {
 		
 							// Getting the 'response' from the database and sending it to our route. This is were the data is.
 							res.send(results)
+							connection.end();
 						});
 
 					}
@@ -354,6 +362,7 @@ app.post('/punch', function (req, res) {
 		
 							// Getting the 'response' from the database and sending it to our route. This is were the data is.
 							res.send(results)
+							connection.end();
 						});
 
 					}
@@ -385,6 +394,7 @@ app.post('/punch', function (req, res) {
 
 		console.log('Query ERROR');
 		res.send('QUERY ERROR');
+		connection.end();
 		
 		
 	};
